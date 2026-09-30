@@ -1,0 +1,35 @@
+@import "tailwindcss";
+
+:root { font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: #0f172a; background: #ffffff; font-synthesis: none; text-rendering: optimizeLegibility; }
+html { scroll-behavior: smooth; }
+body { margin: 0; min-width: 320px; }
+button, input, textarea, select { font: inherit; }
+a { text-decoration: none; }
+
+
+.bft-map {
+  height: 520px;
+  width: 100%;
+}
+
+.bft-map .leaflet-container {
+  height: 100%;
+  width: 100%;
+  font-family: inherit;
+}
+
+.bft-map .leaflet-popup-content-wrapper,
+.bft-map .leaflet-popup-tip {
+  border-radius: 16px;
+}
+
+.bft-map .leaflet-popup-content {
+  margin: 12px;
+}
+
+@media (max-width: 640px) {
+  .bft-map {
+    height: 420px;
+  }
+}
+.field{width:100%;border-radius:.75rem;border:1px solid rgb(51 65 85);background:rgb(2 6 23);padding:.75rem 1rem;color:rgb(226 232 240);outline:none}.field:focus{border-color:rgb(163 230 53);box-shadow:0 0 0 3px rgb(163 230 53 / .1)}

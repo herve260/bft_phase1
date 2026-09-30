@@ -1,0 +1,14 @@
+1. Start MySQL (XAMPP or MySQL service).
+2. Backend:
+   cd bft_phase1\server
+   copy .env.example .env
+   edit .env
+   npm install
+   npm run db:seed
+   npm run dev
+3. Frontend in a second terminal:
+   cd bft_phase1
+   npm install
+   npm run dev
+4. Login with the seeded admin credentials from server\.env.
+5. If Vite changes from port 5173 to another localhost port, that is supported.
