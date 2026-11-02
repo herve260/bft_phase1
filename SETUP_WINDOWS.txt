@@ -12,3 +12,15 @@
    npm run dev
 4. Login with the seeded admin credentials from server\.env.
 5. If Vite changes from port 5173 to another localhost port, that is supported.
+
+
+If Vite shows “Failed to resolve entry for package lucide-react”:
+- Stop Vite with Ctrl+C.
+- From the frontend project root, run: `rmdir /s /q node_modules`
+- If a lockfile exists, run: `del package-lock.json`
+- Run: `npm cache verify` then `npm install` then `npm run build`.
+- Restart with `npm run dev`.
+
+Destination photos: the admin form accepts JPG, PNG or WebP up to 8 MB and previews the chosen photo. The photo is sent with the destination form and saved in the same database transaction as its gallery entry. On local development, uploads are stored in `server\uploads\destinations`. For deployment, configure persistent disk or cloud image storage.
+
+Language selector: use the header dropdown to choose English, Kinyarwanda or French. The selection is remembered in the browser.

@@ -5,6 +5,7 @@ dist/
 !.env.example
 server/.env
 server/dist/
+server/uploads/
 server/src/generated/
 *.log
 coverage/

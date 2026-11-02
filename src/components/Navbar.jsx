@@ -3,6 +3,7 @@ import { Link, NavLink } from "react-router-dom";
 import { useAuth } from "../context/AuthContext.jsx";
 import { Menu, X, ChevronDown } from "lucide-react";
 import logo from "../assets/tourism-logo.png";
+import { useLanguage } from "../i18n/index.js";
 
 const links = [
   ["Home", "/"],
@@ -17,6 +18,8 @@ const links = [
 function Navbar() {
   const [open, setOpen] = useState(false);
   const { user, logout } = useAuth();
+  const { language, setLanguage, t, languages } = useLanguage();
+  const translatedLinks = links.map(([label, path]) => [({Home:"home",Destinations:"destinations",Internships:"internships",Training:"training",Feedback:"feedback",About:"about",Contact:"contact"})[label] ? t(({Home:"home",Destinations:"destinations",Internships:"internships",Training:"training",Feedback:"feedback",About:"about",Contact:"contact"})[label]) : label, path]);
 
   return (
     <header className="sticky top-0 z-50 border-b border-slate-200 bg-white/95 shadow-sm backdrop-blur">
@@ -39,7 +42,7 @@ function Navbar() {
         </button>
 
         <nav className="hidden items-center gap-1 md:flex">
-          {links.map(([label, path]) => (
+          {translatedLinks.map(([label, path]) => (
             <NavLink
               key={path}
               to={path}
@@ -52,14 +55,15 @@ function Navbar() {
               {label}
             </NavLink>
           ))}
-          <Link to="/internships" className="ml-2 rounded-full bg-green-700 px-5 py-2.5 text-sm font-bold text-white shadow hover:bg-green-800">Find Opportunity</Link>
-          {user ? <><Link to={user.role === "ADMIN" || user.role === "SUPER_ADMIN" ? "/admin" : "/dashboard"} className="rounded-full px-4 py-2 text-sm font-bold text-slate-700 hover:bg-slate-100">{user.role === "ADMIN" || user.role === "SUPER_ADMIN" ? "Admin" : "Dashboard"}</Link><button type="button" onClick={logout} className="rounded-full border border-slate-200 px-4 py-2 text-sm font-bold text-slate-700">Logout</button></> : <Link to="/login" className="rounded-full border border-slate-200 px-4 py-2 text-sm font-bold text-slate-700">Login</Link>}
+          <Link to="/internships" className="ml-2 rounded-full bg-green-700 px-5 py-2.5 text-sm font-bold text-white shadow hover:bg-green-800">{t("findOpportunity")}</Link>
+          <label className="ml-2 flex items-center gap-2 rounded-full border border-slate-200 px-3 py-2 text-xs font-bold text-slate-700" aria-label="Choose language"><span className="sr-only">Language</span><select value={language} onChange={(e) => setLanguage(e.target.value)} className="max-w-24 bg-transparent outline-none" aria-label="Language">{languages.map((item) => <option key={item.code} value={item.code}>{item.label}</option>)}</select></label>
+          {user ? <><Link to={user.role === "ADMIN" || user.role === "SUPER_ADMIN" ? "/admin" : "/dashboard"} className="rounded-full px-4 py-2 text-sm font-bold text-slate-700 hover:bg-slate-100">{user.role === "ADMIN" || user.role === "SUPER_ADMIN" ? t("admin") : t("dashboard")}</Link><button type="button" onClick={logout} className="rounded-full border border-slate-200 px-4 py-2 text-sm font-bold text-slate-700">{t("logout")}</button></> : <Link to="/login" className="rounded-full border border-slate-200 px-4 py-2 text-sm font-bold text-slate-700">{t("login")}</Link>}
         </nav>
       </div>
 
       {open && (
         <nav className="border-t border-slate-100 bg-white px-4 py-3 md:hidden">
-          {links.map(([label, path]) => (
+          {translatedLinks.map(([label, path]) => (
             <NavLink
               key={path}
               to={path}
@@ -70,7 +74,8 @@ function Navbar() {
               <ChevronDown size={16} className="-rotate-90" />
             </NavLink>
           ))}
-          {user ? <><Link onClick={() => setOpen(false)} to={user.role === "ADMIN" || user.role === "SUPER_ADMIN" ? "/admin" : "/dashboard"} className="mt-3 flex px-3 py-3 font-bold text-green-700">Dashboard</Link><button onClick={() => { logout(); setOpen(false); }} className="flex w-full px-3 py-3 font-bold text-slate-700">Logout</button></> : <Link onClick={() => setOpen(false)} to="/login" className="mt-3 flex px-3 py-3 font-bold text-green-700">Login</Link>}
+          <label className="flex items-center justify-between border-b border-slate-100 px-3 py-3 font-semibold text-slate-700">Language<select value={language} onChange={(e) => setLanguage(e.target.value)} className="rounded-lg border border-slate-200 bg-white p-2" aria-label="Language">{languages.map((item) => <option key={item.code} value={item.code}>{item.label}</option>)}</select></label>
+          {user ? <><Link onClick={() => setOpen(false)} to={user.role === "ADMIN" || user.role === "SUPER_ADMIN" ? "/admin" : "/dashboard"} className="mt-3 flex px-3 py-3 font-bold text-green-700">Dashboard</Link><button onClick={() => { logout(); setOpen(false); }} className="flex w-full px-3 py-3 font-bold text-slate-700">{t("logout")}</button></> : <Link onClick={() => setOpen(false)} to="/login" className="mt-3 flex px-3 py-3 font-bold text-green-700">{t("login")}</Link>}
         </nav>
       )}
     </header>

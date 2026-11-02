@@ -17,11 +17,10 @@ The backend accepts localhost frontend ports dynamically during development, so 
 
 ## Demo admin
 
-The seed uses `SEED_ADMIN_EMAIL` and `SEED_ADMIN_PASSWORD` from `.env`.
+The seed uses `SEED_ADMIN_EMAIL` and `SEED_ADMIN_PASSWORD` from `.env`. Set a unique password of at least 12 characters before running it; blank or placeholder values are rejected.
 
 Default values in `.env.example`:
 - Email: admin@buildfuturetourism.rw
-- Password: ChangeMe123!
 
 Change these before production.
 

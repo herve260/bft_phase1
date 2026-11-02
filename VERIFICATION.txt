@@ -1,0 +1,11 @@
+Build Future Tourism — source verification
+
+Checks completed in the preparation environment:
+- ZIP archive extracted successfully from the supplied project.
+- Parsed all 68 JavaScript, JSX and TypeScript source files with the TypeScript transpiler; no syntax diagnostics were reported.
+- Checked package.json files for valid JSON.
+- Reviewed the destination upload route/controller changes and confirmed the create request uses one multipart form submission, a MySQL transaction for destination + gallery record, and cleanup of the newly uploaded file on database failure.
+- Confirmed the map filters out destinations without valid coordinates and the frontend media helper resolves relative upload URLs against the backend API origin.
+
+Limitation:
+- A full Vite production build and backend dependency/type-check could not be run here because npm dependency installation timed out in the environment. Run `npm install` and `npm run build` locally after extracting the ZIP. Do not treat this source-level verification as proof that a live MySQL/payment integration has passed end-to-end testing.

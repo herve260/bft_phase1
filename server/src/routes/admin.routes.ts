@@ -8,7 +8,7 @@ import {destinationImageUpload} from '../middleware/upload.middleware.js';
 const r=Router();
 r.use(requireAuth,requireRoles('ADMIN','SUPER_ADMIN'));
 r.get('/dashboard',a.dashboard); r.get('/users',a.listUsers); r.patch('/users/:id',a.updateUser);
-r.get('/destinations',a.listAdminDestinations); r.post('/destinations',a.createDestination); r.put('/destinations/:id',a.updateDestination); r.delete('/destinations/:id',a.deleteDestination); r.post('/destinations/:id/images',destinationImageUpload.single('image'),a.uploadDestinationImage); r.get('/destinations/:id/images',a.listDestinationImages); r.delete('/destinations/:id/images/:imageId',a.deleteDestinationImage);
+r.get('/destinations',a.listAdminDestinations); r.post('/destinations',destinationImageUpload.single('image'),a.createDestination); r.put('/destinations/:id',a.updateDestination); r.delete('/destinations/:id',a.deleteDestination); r.post('/destinations/:id/images',destinationImageUpload.single('image'),a.uploadDestinationImage); r.get('/destinations/:id/images',a.listDestinationImages); r.delete('/destinations/:id/images/:imageId',a.deleteDestinationImage);
 r.get('/internships',a.listAdminInternships); r.post('/internships',a.createInternship); r.put('/internships/:id',a.updateInternship); r.delete('/internships/:id',a.deleteInternship);
 r.get('/applications',listAllApplications); r.patch('/applications/:id/status',updateApplicationStatus);
 r.get('/training',adminListTraining); r.post('/training',adminCreateTraining); r.put('/training/:id',adminUpdateTraining); r.delete('/training/:id',adminDeleteTraining); r.get('/training/registrations',listTrainingRegistrations); r.patch('/training/registrations/:id/status',updateTrainingRegistrationStatus);

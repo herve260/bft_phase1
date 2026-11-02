@@ -2,6 +2,8 @@ import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { CircleMarker, MapContainer, Popup, TileLayer, useMap } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
+import { mediaUrl } from "../utils/media.js";
+import { useLanguage } from "../i18n/index.js";
 
 const RWANDA_CENTER = [-1.94, 29.87];
 
@@ -30,14 +32,16 @@ function MapViewport({ destinations }) {
 }
 
 function DestinationMap({ destinations }) {
+  const { t } = useLanguage();
+  const mappedDestinations = destinations.filter((item) => Number.isFinite(Number(item.latitude)) && Number.isFinite(Number(item.longitude)) && item.latitude !== null && item.longitude !== null && item.latitude !== "" && item.longitude !== "");
   return (
     <div className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm">
       <div className="flex flex-col gap-2 border-b border-slate-200 px-6 py-5 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <p className="text-xs font-black uppercase tracking-[0.2em] text-green-700">Interactive Rwanda map</p>
-          <h2 className="mt-1 text-2xl font-black text-slate-900">Explore destinations on the map</h2>
+          <p className="text-xs font-black uppercase tracking-[0.2em] text-green-700">{t("interactiveMap")}</p>
+          <h2 className="mt-1 text-2xl font-black text-slate-900">{t("mapTitle")}</h2>
         </div>
-        <p className="text-sm text-slate-500">{destinations.length} destination{destinations.length === 1 ? "" : "s"} shown</p>
+        <p className="text-sm text-slate-500">{mappedDestinations.length} {t("destinationCount")}</p>
       </div>
 
       <div className="bft-map">
@@ -46,9 +50,9 @@ function DestinationMap({ destinations }) {
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noreferrer">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
-          <MapViewport destinations={destinations} />
+          <MapViewport destinations={mappedDestinations} />
 
-          {destinations.map((item) => (
+          {mappedDestinations.map((item) => (
             <CircleMarker
               key={item.id}
               center={[item.latitude, item.longitude]}
@@ -63,7 +67,7 @@ function DestinationMap({ destinations }) {
             >
               <Popup>
                 <div className="w-56">
-                  <img src={item.image} alt="" className="h-28 w-full rounded-xl object-cover" />
+                  <img src={mediaUrl(item.image || item.imageUrl || item.image_url) || "/tourism-logo.png"} alt="" loading="lazy" onError={(event) => { event.currentTarget.onerror = null; event.currentTarget.src = "/tourism-logo.png"; }} className="h-28 w-full rounded-xl object-cover" />
                   <p className="mt-3 text-xs font-black uppercase tracking-wider text-green-700">{item.category}</p>
                   <h3 className="mt-1 text-base font-black text-slate-900">{item.name}</h3>
                   <p className="mt-1 text-xs font-semibold text-slate-500">{item.location}</p>

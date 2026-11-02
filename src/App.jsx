@@ -15,8 +15,9 @@ import Dashboard from "./pages/Dashboard.jsx";
 import AdminDashboard from "./pages/AdminDashboard.jsx";
 import NotFound from "./pages/NotFound.jsx";
 import Feedback from "./pages/Feedback.jsx";
+import PaymentResult from "./pages/PaymentResult.jsx";
 
 function App() {
-  return <AuthProvider><BrowserRouter><Routes><Route element={<PublicLayout />}><Route path="/" element={<Home />} /><Route path="/destinations" element={<Destinations />} /><Route path="/destinations/:slug" element={<DestinationDetails />} /><Route path="/internships" element={<Internships />} /><Route path="/training" element={<Training />} /><Route path="/about" element={<About />} /><Route path="/contact" element={<Contact />} /><Route path="/feedback" element={<Feedback />} /><Route path="/login" element={<Login />} /><Route path="/register" element={<Register />} /><Route element={<ProtectedRoute />}><Route path="/dashboard" element={<Dashboard />} /></Route><Route element={<ProtectedRoute roles={["ADMIN", "SUPER_ADMIN"]} />}><Route path="/admin" element={<AdminDashboard />} /></Route><Route path="*" element={<NotFound />} /></Route></Routes></BrowserRouter></AuthProvider>;
+  return <AuthProvider><BrowserRouter><Routes><Route element={<PublicLayout />}><Route path="/" element={<Home />} /><Route path="/destinations" element={<Destinations />} /><Route path="/destinations/:slug" element={<DestinationDetails />} /><Route path="/internships" element={<Internships />} /><Route path="/training" element={<Training />} /><Route path="/payment-result" element={<PaymentResult />} /><Route path="/about" element={<About />} /><Route path="/contact" element={<Contact />} /><Route path="/feedback" element={<Feedback />} /><Route path="/login" element={<Login />} /><Route path="/register" element={<Register />} /><Route element={<ProtectedRoute />}><Route path="/dashboard" element={<Dashboard />} /></Route><Route element={<ProtectedRoute roles={["ADMIN", "SUPER_ADMIN"]} />}><Route path="/admin" element={<AdminDashboard />} /></Route><Route path="*" element={<NotFound />} /></Route></Routes></BrowserRouter></AuthProvider>;
 }
 export default App;
